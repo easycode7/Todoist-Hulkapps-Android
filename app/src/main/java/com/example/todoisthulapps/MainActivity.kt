@@ -7,10 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -23,6 +20,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -46,8 +45,24 @@ class MainActivity : ComponentActivity() {
                        TitleText()
                        Row(modifier = Modifier.fillMaxWidth(),
                            horizontalArrangement = Arrangement.Center) {
-                           TaskCard(task = "Do some task.")
+                           Column() {
+                               TaskCard(task = "Task #1")
+                               TaskCard(task = "Task #2")
+                               TaskCard(task = "Task #3")
+                               TaskCard(task = "Task #4 - Arrange Collumn")
+
+                           }
                        }
+                            Row(horizontalArrangement =  Arrangement.End,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(20.dp)) {
+                                Column(verticalArrangement = Arrangement.Bottom,
+                                modifier = Modifier.fillMaxHeight()) {
+                                    AddButton()
+                                }
+
+                            }
 
                    }
                 }
@@ -77,29 +92,65 @@ fun TitleText() {
 }
 @Composable
 fun TaskCard(task: String) {
-   Row(horizontalArrangement = Arrangement.Center,
-       modifier = Modifier.border(width = 0.8.dp,
-           Color.LightGray,
-           shape = RoundedCornerShape(12.dp)).padding(18.dp)) {
-       Column {
-           Text(text = task,
-           fontSize = 20.sp,
-           fontFamily = Inter,
-           fontWeight = FontWeight.Normal
-           )
-           Text(text = "High",
-           fontFamily = OpenSans,
-           fontWeight = FontWeight.SemiBold,
-           fontSize = 12.sp,
-           color = Color(87, 16, 50))
-       }
-       Spacer(modifier = Modifier.padding(horizontal = 70.dp))
-       Row() {
-           Icon(imageVector = Icons.Default.Edit, contentDescription = null,
-           tint = Color(242, 95, 76))
-           Icon(imageVector = Icons.Default.Delete, contentDescription = null,
-           tint = Color(242, 95, 76))
-       }
+
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp
+    val screenHeight = configuration.screenHeightDp
+    Column(modifier = Modifier.padding(bottom = 20.dp)) {
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier
+            .width(350.dp)
+            .shadow(elevation = 7.dp, shape = RoundedCornerShape(10.dp))
+            .clip(shape = RoundedCornerShape(13.dp))
+            .background(color = Color.White)
+            .padding(12.dp)) {
+            Column(){
+                Row(modifier = Modifier.fillMaxWidth(fraction = 0.5f),
+                horizontalArrangement = Arrangement.Start) {
+                  Column() {
+                      Text(text = task,
+                          fontSize = 16.sp,
+                          fontFamily = Inter,
+                          fontWeight = FontWeight.Normal,
+                          modifier = Modifier.padding(bottom = 10.dp)
+                      )
+                      Text(text = "Medium",
+                          fontFamily = OpenSans,
+                          fontWeight = FontWeight.SemiBold,
+                          fontSize = 12.sp,
+                          color = Color(87, 16, 50),
+                          modifier = Modifier
+                              .background(
+                                  color = Color(252, 238, 245),
+                                  shape = RoundedCornerShape(12.dp)
+                              )
+                              .padding(5.dp))
+
+                  }
+                }
+            }
+            Spacer(modifier = Modifier.fillMaxWidth(fraction = 0.7f))
+
+            Row(modifier = Modifier.padding(top = 5.dp)) {
+                FloatingActionButton(onClick = { /*TODO*/ },
+                backgroundColor = Color.Transparent,
+                    modifier = Modifier,
+                    elevation = FloatingActionButtonDefaults.elevation(0.dp,0.dp)) {
+                    Icon(painter = painterResource(id = R.drawable.ic_edit_icon) , contentDescription = null,
+                        tint = Color(242, 95, 76),
+                        modifier = Modifier.size(20.dp))
+                }
+            }
+
+    }
    }
 }
+@Composable
+fun AddButton() {
+    FloatingActionButton(onClick = { /*do something*/},
+    backgroundColor = Color(229, 49, 112)) {
+        Icon(painter = painterResource(id = R.drawable.ic_add), contentDescription = null,
+        tint = Color.White,)
+    }
+}
+
 

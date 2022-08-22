@@ -21,7 +21,7 @@ import com.example.todoisthulapps.constants.Constants
 import com.example.todoisthulapps.R
 
 @Composable
-fun TaskCard(task: String, priority: String) {
+fun TaskCard(task: String) {
 
     Column(modifier = Modifier.padding(bottom = 20.dp)) {
         Row(horizontalArrangement = Arrangement.Center, modifier = Modifier
@@ -40,7 +40,7 @@ fun TaskCard(task: String, priority: String) {
                             fontWeight = FontWeight.Normal,
                             modifier = Modifier.padding(bottom = 10.dp)
                         )
-                        Text(text = priority,
+                        Text(text = "To-Do",
                             fontFamily = Constants.OpenSans,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp,
@@ -71,3 +71,4 @@ fun TaskCard(task: String, priority: String) {
         }
     }
 }
+

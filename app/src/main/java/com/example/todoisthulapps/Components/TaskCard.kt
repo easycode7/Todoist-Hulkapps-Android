@@ -3,10 +3,7 @@ package com.example.todoisthulapps.Components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.FloatingActionButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.todoisthulapps.constants.Constants
 import com.example.todoisthulapps.R
+import com.example.todoisthulapps.ui.theme.antracite
+import com.example.todoisthulapps.ui.theme.white
 
 @Composable
 fun TaskCard(task: String) {
@@ -28,7 +27,7 @@ fun TaskCard(task: String) {
             .width(350.dp)
             .shadow(elevation = 7.dp, shape = RoundedCornerShape(10.dp))
             .clip(shape = RoundedCornerShape(13.dp))
-            .background(color = Color.White)
+            .background(color = MaterialTheme.colors.secondary)
             .padding(12.dp)) {
             Column(){
                 Row(modifier = Modifier.fillMaxWidth(fraction = 0.5f),

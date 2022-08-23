@@ -41,7 +41,6 @@ fun ParseJSON() {
 }
 
 // ** Function to decode JSON Object ** //
-
 fun jsonParsing(
    ctx: Context,
    title: MutableState<String>,
@@ -75,32 +74,29 @@ fun jsonParsing(
    queue.add(request)
 }
 
+
 @Composable
-fun downloadArray(context: Context, taskList: MutableList<String>, taskPriority: MutableList<String>) {
-   var url =  "https://todoist-hulkapps.herokuapp.com/epics/tasks/"
-   val queue = Volley.newRequestQueue(context)
+fun downloadArray(context: Context, taskList: MutableList<String>) {
+   val url = "https://todoist-hulkapps.herokuapp.com/epics/tasks"
+   var queue = Volley.newRequestQueue(context)
 
-   val request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
-   try {
-      for (i in 0 until response.length()) {
-         val responseObj = response.getJSONObject(i)
-         val id = responseObj.getString("id")
-         val title = responseObj.getString("title")
-         val description = responseObj.getString("description")
-         val priority = responseObj.getString("priority")
-         Log.e("title", title.toString())
-         Log.e("id", id.toString())
-         taskList += title
-         taskPriority += priority
+   var request = JsonArrayRequest(Request.Method.GET, url, null, { response ->
+      try {
+          for (i in 0 until response.length()) {
+             val responseObj = response.getJSONObject(i)
+             var id = responseObj.getString("id")
+             var title = responseObj.getString("title")
+             var description = responseObj.getString("description")
+             var priority = responseObj.getString("priority")
+             taskList += title
+
+          }
+      } catch (e: Exception) {
+         e.printStackTrace()
       }
-   } catch(e: Exception) {
-      e.printStackTrace()
-   }
    }, { error ->
-      Toast.makeText(context, "Fail to get response", Toast.LENGTH_SHORT)
-         .show()
-   })
 
+   })
    queue.add(request)
 }
 

@@ -1,5 +1,7 @@
 package com.example.todoisthulapps
 
+import android.content.Context
+import androidx.compose.foundation.MutatePriority
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -11,7 +13,7 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun downloadArray(context: Context, taskList: MutableList<String>) {
+
     }
 }

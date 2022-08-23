@@ -8,8 +8,10 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.Group
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -18,34 +20,45 @@ import com.example.todoisthulapps.Components.TaskCard
 import com.example.todoisthulapps.Components.TitleText
 import com.example.todoisthulapps.ViewModel.downloadArray
 
+
 @Composable
 fun MainView(navController: NavController) {
     Column {
         TitleText(title = "To Do List")
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center) {
-            Column {
-                displayArray()
-            }
-        }
-        Row(horizontalArrangement =  Arrangement.End,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp)) {
-            Column(verticalArrangement = Arrangement.Bottom,
-                modifier = Modifier.fillMaxHeight()) {
-                AddButton(navController = navController)
-            }
-        }
+       Box {
+           Box {
+               Row(modifier = Modifier.fillMaxWidth(),
+                   horizontalArrangement = Arrangement.Center) {
+                   Column {
+                       displayArray()
+                   }
+               }
+           }
+           Box {
+               Row(horizontalArrangement =  Arrangement.End,
+                   modifier = Modifier
+                       .fillMaxWidth()
+                       .padding(20.dp)) {
+                   Column(verticalArrangement = Arrangement.Bottom,
+                       modifier = Modifier.fillMaxHeight()) {
+                       AddButton(navController = navController)
+                   }
+               }
+           }
+       }
     }
 }
 
 @Composable
 fun displayArray() {
     val context = LocalContext.current
+    val taskTitle = remember {
+        mutableStateOf("")
+    }
     val taskList = remember { mutableStateListOf<String>() }
     val taskPriority = remember { mutableStateListOf<String>() }
-    downloadArray(context = context, taskList = taskList, taskPriority = taskPriority )
+    downloadArray(context = context, taskList = taskList )
+
 
     LazyColumn {
         // on below line we are populating
@@ -56,6 +69,4 @@ fun displayArray() {
 
         }
     }
-
-
 }
